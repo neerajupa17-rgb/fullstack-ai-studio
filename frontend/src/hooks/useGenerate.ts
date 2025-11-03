@@ -54,16 +54,16 @@ export function useGenerate() {
         const currentRetries = retryCountRef.current;
         if (currentRetries < maxRetries) {
           retryCountRef.current = currentRetries + 1;
+          const delay = Math.pow(2, currentRetries) * 1000; // Exponential backoff
           setError(
-            `Model overloaded. Retrying... (${currentRetries + 1}/${maxRetries})`
+            `Model overloaded. Retrying in ${delay / 1000}s... (${currentRetries + 1}/${maxRetries})`
           );
           // Exponential backoff
-          await new Promise((resolve) =>
-            setTimeout(resolve, Math.pow(2, currentRetries) * 1000)
-          );
+          await new Promise((resolve) => setTimeout(resolve, delay));
           return generate(prompt, style, imageFile);
         } else {
           setError('Model overloaded. Maximum retries reached. Please try again later.');
+          retryCountRef.current = 0; // Reset for next attempt
           return null;
         }
       }
