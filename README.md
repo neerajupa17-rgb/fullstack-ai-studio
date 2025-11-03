@@ -142,7 +142,7 @@ See `OPENAPI.yaml` for complete API specification.
 - [ ] Implement code splitting and lazy loading
 - [ ] Add dark mode toggle
 - [ ] Add UI animations (Framer Motion)
-- [ ] Add Docker compose setup
+- [ ] Add Docker compose setup (docker-compose.yml already created, needs testing)
 
 ## License
 
