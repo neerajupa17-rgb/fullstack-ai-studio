@@ -21,20 +21,27 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  // Clean up
+  // Clean up - must delete in correct order due to foreign key
   await dbRun('DELETE FROM generations');
   await dbRun('DELETE FROM users');
+
+  // Wait a bit for cleanup to complete
+  await new Promise(resolve => setTimeout(resolve, 100));
 
   // Create test user and get token
   const signupResponse = await request(app)
     .post('/api/auth/signup')
     .send({
-      email: 'test@example.com',
+      email: `test-${Date.now()}@example.com`, // Unique email each time
       password: 'password123',
     });
 
-  testUserId = signupResponse.body.user.id;
-  testToken = signupResponse.body.token;
+  if (signupResponse.body && signupResponse.body.user) {
+    testUserId = signupResponse.body.user.id;
+    testToken = signupResponse.body.token;
+  } else {
+    throw new Error('Failed to create test user: ' + JSON.stringify(signupResponse.body) + ' Status: ' + signupResponse.status);
+  }
 });
 
 describe('Generations API', () => {
