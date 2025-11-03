@@ -136,13 +136,15 @@ See `OPENAPI.yaml` for complete API specification.
 - Database is SQLite (stored in `backend/data/database.sqlite`)
 - Uploaded images are stored in `backend/uploads/`
 
-## TODO
+## Future Enhancements (Optional Bonus Features)
+
+These features are optional enhancements from the assignment's bonus section. The core assignment requirements are complete.
 
 - [ ] Add image resizing before upload (max width 1920px)
 - [ ] Implement code splitting and lazy loading
 - [ ] Add dark mode toggle
 - [ ] Add UI animations (Framer Motion)
-- [ ] Add Docker compose setup
+- [x] ~~Add Docker compose setup~~ ✅ Already implemented (see `docker-compose.yml`)
 
 ## License
 
